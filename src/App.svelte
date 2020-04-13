@@ -5,7 +5,7 @@
 	import Chart from './components/Chart.svelte'
 	import ProbabilityChart from './components/ProbabilityChart.svelte'
 	import Help from './components/Help.svelte'
-	import Heart from './components/icons/Heart.svelte'
+	import Heart from './components/Heart.svelte'
 </script>
 
 <main>

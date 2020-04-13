@@ -14,7 +14,10 @@ const production = !process.env.ROLLUP_WATCH;
 const removeUnusedCss = purgeCss({
   content: ['./src/**/*.html', './src/**/*.svelte'],
   defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
+  whitelist: ['primary', 'secondary'],
+  whitelistPatterns: [/icon$/]
 });
+const cssnano = require("cssnano")({ preset: 'default', });
 
 export default {
 	input: 'src/main.js',
@@ -43,6 +46,7 @@ export default {
 			  tailwind(),
 			  autoprefixer,
 			  production && removeUnusedCss,
+			  production && cssnano,
 			].filter(Boolean),
 			extract: 'public/build/bundle.css',
 		  }),
