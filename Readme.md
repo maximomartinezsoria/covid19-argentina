@@ -1,4 +1,4 @@
-# Minimalist router SPA
+# Covid19 Argentina
 
 Take a look at the stats of covid19 in Argentina.
 
