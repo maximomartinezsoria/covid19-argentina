@@ -76,11 +76,14 @@ const probabilityData = readable({confirmed: [], deaths: [], recovered: []}, asy
         }
     
         for(let i = 1; i <= 15; i++) {
-            let rawDate = calcData[i - 1].rawDate;
+            const rawDate = new Date(calcData[i - 1].rawDate);
+            if(i === 1) rawDate.setDate(rawDate.getDate() + 1);
+            rawDate.setDate(rawDate.getDate() + 1);
+
             calcData[i] = {
                 cases: (calcData[i - 1].cases * factor).toFixed(0),
-                date: new Intl.DateTimeFormat('es-AR', { month: 'long', day: 'numeric' }).format(rawDate.setDate(rawDate.getDate() + 1)),
-                rawDate
+                date: new Intl.DateTimeFormat('es-AR', { month: 'long', day: 'numeric' }).format(rawDate),
+                rawDate,
             }
         }
 
@@ -93,7 +96,7 @@ const probabilityData = readable({confirmed: [], deaths: [], recovered: []}, asy
             set({ 
                 confirmed: calcProbability(data.confirmed),
                 deaths: calcProbability(data.deaths),
-                recovered: calcProbability(data.recovered),
+                recovered: calcProbability(data.recovered)
              })
         }
     });  
