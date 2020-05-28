@@ -6,17 +6,10 @@ import { terser } from 'rollup-plugin-terser';
 import autoPreprocess from 'svelte-preprocess';
 import tailwind from 'tailwindcss';
 import postcss from 'rollup-plugin-postcss';
-import purgeCss from '@fullhuman/postcss-purgecss';
 import autoprefixer from 'autoprefixer';
 import postcssImport from 'postcss-import';
 
 const production = !process.env.ROLLUP_WATCH;
-const removeUnusedCss = purgeCss({
-  content: ['./src/**/*.html', './src/**/*.svelte'],
-  defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
-  whitelist: ['primary', 'secondary'],
-  whitelistPatterns: [/icon$/]
-});
 const cssnano = require("cssnano")({ preset: 'default', });
 
 export default {
@@ -44,9 +37,8 @@ export default {
 			plugins: [
 			  postcssImport,
 			  tailwind(),
-			  autoprefixer,
-			  production && removeUnusedCss,
-			  production && cssnano,
+				autoprefixer,
+				cssnano
 			].filter(Boolean),
 			extract: 'public/build/bundle.css',
 		  }),
